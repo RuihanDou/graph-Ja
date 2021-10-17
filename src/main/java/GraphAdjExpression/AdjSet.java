@@ -1,17 +1,17 @@
-package AdjList;
+package GraphAdjExpression;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.TreeSet;
 
-public class AdjList {
+public class AdjSet {
 
     private int V;
     private int E;
-    private LinkedList<Integer>[] adj;
+    private TreeSet<Integer>[] adj;
 
-    public AdjList(String filename){
+    public AdjSet(String filename){
 
         File file = new File(filename);
 
@@ -21,9 +21,9 @@ public class AdjList {
             if(V < 0){
                 throw new IllegalArgumentException("V must be non-negative");
             }
-            adj = new LinkedList[V];
+            adj = new TreeSet[V];
             for(int i = 0; i < V; i++){
-                adj[i] = new LinkedList<Integer>();
+                adj[i] = new TreeSet<Integer>();
             }
 
             E = scanner.nextInt();
@@ -99,7 +99,8 @@ public class AdjList {
 
     public static void main(String[] args){
 
-        AdjList adjList = new AdjList("g.txt");
-        System.out.print(adjList);
+        AdjSet adjSet = new AdjSet("g.txt");
+        System.out.print(adjSet);
     }
+
 }

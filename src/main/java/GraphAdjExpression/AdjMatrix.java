@@ -1,21 +1,17 @@
-package AdjSet;
-
-import AdjList.AdjList;
+package GraphAdjExpression;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeSet;
 
-public class AdjSet {
+public class AdjMatrix {
 
     private int V;
     private int E;
-    private TreeSet<Integer>[] adj;
+    private int[][] adj;
 
-    public AdjSet(String filename){
+    public AdjMatrix(String filename){
 
         File file = new File(filename);
 
@@ -25,10 +21,7 @@ public class AdjSet {
             if(V < 0){
                 throw new IllegalArgumentException("V must be non-negative");
             }
-            adj = new TreeSet[V];
-            for(int i = 0; i < V; i++){
-                adj[i] = new TreeSet<Integer>();
-            }
+            adj = new int[V][V];
 
             E = scanner.nextInt();
             if(E < 0){
@@ -44,12 +37,12 @@ public class AdjSet {
                 if(a == b){
                     throw new IllegalArgumentException("Self Loop is Detected!");
                 }
-                if(adj[a].contains(b)){
+                if(adj[a][b] == 1){
                     throw new IllegalArgumentException("Parallel Edges are Detected!");
                 }
 
-                adj[a].add(b);
-                adj[b].add(a);
+                adj[a][b] = 1;
+                adj[b][a] = 1;
             }
         }
         catch(IOException e){
@@ -73,17 +66,29 @@ public class AdjSet {
     public boolean hasEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
-        return adj[v].contains(w);
+        return adj[v][w] == 1;
     }
 
     public Iterable<Integer> adj(int v){
         validateVertex(v);
-        return adj[v];
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i = 0; i < V; i ++){
+            if(adj[v][i] == 1){
+                res.add(i);
+            }
+        }
+        return res;
     }
 
     public int degree(int v){
         validateVertex(v);
-        return adj[v].size();
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i = 0; i < V; i ++){
+            if(adj[v][i] == 1){
+                res.add(i);
+            }
+        }
+        return res.size();
     }
 
     @Override
@@ -91,10 +96,9 @@ public class AdjSet {
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("V = %d, E = %d\n", V, E));
-        for(int v = 0; v < V; v ++){
-            sb.append(String.format("%d : ", v));
-            for(int w : adj[v]){
-                sb.append(String.format("%d ", w));
+        for(int i = 0; i < V; i ++){
+            for(int j = 0; j < V; j ++){
+                sb.append(String.format("%d ", adj[i][j]));
             }
             sb.append('\n');
         }
@@ -103,8 +107,7 @@ public class AdjSet {
 
     public static void main(String[] args){
 
-        AdjSet adjSet = new AdjSet("g.txt");
-        System.out.print(adjSet);
+        AdjMatrix adjMatrix = new AdjMatrix("g.txt");
+        System.out.print(adjMatrix);
     }
-
 }
