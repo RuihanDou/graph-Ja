@@ -72,13 +72,14 @@ public class AdjList {
         return adj[v].contains(w);
     }
 
-    public LinkedList<Integer> adj(int v){
+    public Iterable<Integer> adj(int v){
         validateVertex(v);
         return adj[v];
     }
 
     public int degree(int v){
-        return adj(v).size();
+        validateVertex(v);
+        return adj[v].size();
     }
 
     @Override
