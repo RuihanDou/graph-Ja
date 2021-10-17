@@ -1,10 +1,7 @@
 package AdjList;
 
-import AdjMatrix.AdjMatrix;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -101,7 +98,7 @@ public class AdjList {
 
     public static void main(String[] args){
 
-        AdjMatrix adjMatrix = new AdjMatrix("g.txt");
-        System.out.print(adjMatrix);
+        AdjList adjList = new AdjList("g.txt");
+        System.out.print(adjList);
     }
 }
