@@ -1,6 +1,6 @@
 package GraphAdjExpression;
 
-import GraphDFS.Graph;
+import GraphInterface.Graph;
 
 import java.io.File;
 import java.io.IOException;

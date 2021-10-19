@@ -1,4 +1,4 @@
-package GraphDFS;
+package GraphInterface;
 
 public interface Graph {
     int V();

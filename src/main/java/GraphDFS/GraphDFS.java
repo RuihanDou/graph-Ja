@@ -3,6 +3,7 @@ package GraphDFS;
 import GraphAdjExpression.AdjList;
 import GraphAdjExpression.AdjMatrix;
 import GraphAdjExpression.AdjSet;
+import GraphInterface.Graph;
 
 import java.util.ArrayList;
 
