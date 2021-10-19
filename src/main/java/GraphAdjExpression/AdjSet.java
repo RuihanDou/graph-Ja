@@ -99,7 +99,7 @@ public class AdjSet {
 
     public static void main(String[] args){
 
-        AdjSet adjSet = new AdjSet("g.txt");
+        AdjSet adjSet = new AdjSet("g0.txt");
         System.out.print(adjSet);
     }
 

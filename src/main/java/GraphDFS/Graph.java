@@ -1,19 +1,21 @@
-package GraphAdjExpression;
+package GraphDFS;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.TreeSet;
 import java.util.Scanner;
 
-public class AdjList {
+
+/// 暂时只支持无向无权图
+public class Graph {
 
     private int V;
     private int E;
-    private LinkedList<Integer>[] adj;
+    private TreeSet<Integer>[] adj;
 
-    public AdjList(String filename){
+    public Graph(String pathStr){
 
-        File file = new File(filename);
+        File file = new File(pathStr);
 
         try(Scanner scanner = new Scanner(file)){
 
@@ -21,9 +23,9 @@ public class AdjList {
             if(V < 0){
                 throw new IllegalArgumentException("V must be non-negative");
             }
-            adj = new LinkedList[V];
+            adj = new TreeSet[V];
             for(int i = 0; i < V; i++){
-                adj[i] = new LinkedList<Integer>();
+                adj[i] = new TreeSet<Integer>();
             }
 
             E = scanner.nextInt();
@@ -99,7 +101,8 @@ public class AdjList {
 
     public static void main(String[] args){
 
-        AdjList adjList = new AdjList("g0.txt");
-        System.out.print(adjList);
+        Graph g = new Graph("g0.txt");
+        System.out.print(g);
     }
+
 }
