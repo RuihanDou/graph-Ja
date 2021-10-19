@@ -1,11 +1,13 @@
 package GraphAdjExpression;
 
+import GraphDFS.Graph;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdjMatrix {
+public class AdjMatrix implements Graph {
 
     private int V;
     private int E;
@@ -55,20 +57,24 @@ public class AdjMatrix {
             throw new IllegalArgumentException("vertex " + v + "is invalid");
     }
 
+    @Override
     public int V(){
         return V;
     }
 
+    @Override
     public int E(){
         return E;
     }
 
+    @Override
     public boolean hasEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
         return adj[v][w] == 1;
     }
 
+    @Override
     public Iterable<Integer> adj(int v){
         validateVertex(v);
         ArrayList<Integer> res = new ArrayList<>();
@@ -80,6 +86,7 @@ public class AdjMatrix {
         return res;
     }
 
+    @Override
     public int degree(int v){
         validateVertex(v);
         ArrayList<Integer> res = new ArrayList<>();
