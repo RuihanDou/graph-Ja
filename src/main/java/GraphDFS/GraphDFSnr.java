@@ -45,7 +45,7 @@ public class GraphDFSnr {
     }
 
     public static void main(String[] args){
-        Graph g = new AdjSet("g1_not_conected.txt");
+        Graph g = new AdjSet("g1_not_connected.txt");
         GraphDFSnr graphDFSnr = new GraphDFSnr(g);
         System.out.println(graphDFSnr.pre());
     }

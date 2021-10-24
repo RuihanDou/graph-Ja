@@ -1,19 +1,19 @@
 package GraphAdjExpression;
 
-import GraphInterface.Graph;
+import GraphAdjExpression.AdjSet;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.TreeSet;
 
-public class AdjList implements Graph {
+public class Graph implements GraphInterface.Graph {
 
     private int V;
     private int E;
-    private LinkedList<Integer>[] adj;
+    private TreeSet<Integer>[] adj;
 
-    public AdjList(String filename){
+    public Graph(String filename){
 
         File file = new File(filename);
 
@@ -23,9 +23,9 @@ public class AdjList implements Graph {
             if(V < 0){
                 throw new IllegalArgumentException("V must be non-negative");
             }
-            adj = new LinkedList[V];
+            adj = new TreeSet[V];
             for(int i = 0; i < V; i++){
-                adj[i] = new LinkedList<Integer>();
+                adj[i] = new TreeSet<Integer>();
             }
 
             E = scanner.nextInt();
@@ -55,42 +55,35 @@ public class AdjList implements Graph {
         }
     }
 
-    @Override
     public void validateVertex(int v){
         if(v < 0 || v >= V)
             throw new IllegalArgumentException("vertex " + v + "is invalid");
     }
 
-    @Override
     public int V(){
         return V;
     }
 
-    @Override
     public int E(){
         return E;
     }
 
-    @Override
     public boolean hasEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
         return adj[v].contains(w);
     }
 
-    @Override
     public Iterable<Integer> adj(int v){
         validateVertex(v);
         return adj[v];
     }
 
-    @Override
     public int degree(int v){
         validateVertex(v);
         return adj[v].size();
     }
 
-    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
@@ -107,7 +100,8 @@ public class AdjList implements Graph {
 
     public static void main(String[] args){
 
-        AdjList adjList = new AdjList("g0.txt");
-        System.out.print(adjList);
+        AdjSet adjSet = new AdjSet("g0.txt");
+        System.out.print(adjSet);
     }
+
 }

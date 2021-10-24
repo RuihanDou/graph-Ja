@@ -43,7 +43,7 @@ public class AdjMatrixDFS {
 
     public static void main(String[] args){
 
-        AdjMatrix g = new AdjMatrix("g1_not_conected.txt");
+        AdjMatrix g = new AdjMatrix("g1_not_connected.txt");
         AdjMatrixDFS graphDFS = new AdjMatrixDFS(g);
         System.out.println("DFS preOrder : " + graphDFS.preOrder());
         System.out.println("DFS postOrder : " + graphDFS.postOrder());

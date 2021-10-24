@@ -45,19 +45,19 @@ public class GraphDFS {
 
     public static void main(String[] args) {
 
-        Graph g1 = new AdjSet("g1_not_conected.txt");
+        Graph g1 = new AdjSet("g1_not_connected.txt");
         GraphDFS graphDFS1 = new GraphDFS(g1);
         System.out.println("DFS preOrder : " + graphDFS1.pre());
         System.out.println("DFS postOrder : " + graphDFS1.post());
         System.out.println();
 
-        Graph g2 = new AdjList("g1_not_conected.txt");
+        Graph g2 = new AdjList("g1_not_connected.txt");
         GraphDFS graphDFS2 = new GraphDFS(g2);
         System.out.println("DFS preOrder : " + graphDFS2.pre());
         System.out.println("DFS postOrder : " + graphDFS2.post());
         System.out.println();
 
-        Graph g3 = new AdjMatrix("g1_not_conected.txt");
+        Graph g3 = new AdjMatrix("g1_not_connected.txt");
         GraphDFS graphDFS3 = new GraphDFS(g3);
         System.out.println("DFS preOrder : " + graphDFS3.pre());
         System.out.println("DFS postOrder : " + graphDFS3.post());
