@@ -19,6 +19,7 @@ public class CC {
 
     private CC(Graph G){
         this.G = G;
+        // visited[v] 里存联通分量的id
         visited = new int[G.V()];
         Arrays.fill(visited, -1);
         for(int v = 0; v < G.V(); v++){
