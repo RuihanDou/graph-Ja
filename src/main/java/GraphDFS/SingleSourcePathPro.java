@@ -1,7 +1,6 @@
 package GraphDFS;
 
-import GraphAdjExpression.AdjSet;
-import GraphInterface.Graph;
+import GraphAdjExpression.Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +56,7 @@ public class SingleSourcePathPro {
     }
 
     public static void main(String[] args) {
-        Graph g = new AdjSet("g1_not_connected.txt");
+        Graph g = new Graph("g1_not_connected.txt");
         SingleSourcePathPro sspath = new SingleSourcePathPro(g, 0);
 
         System.out.println("0 -> 6 : " + sspath.path(6));

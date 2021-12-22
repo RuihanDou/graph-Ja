@@ -1,4 +1,4 @@
-package GraphDFS;
+package GraphBFS;
 
 import GraphAdjExpression.Graph;
 

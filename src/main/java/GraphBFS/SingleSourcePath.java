@@ -1,9 +1,8 @@
-package GraphDFS;
+package GraphBFS;
 
 import GraphAdjExpression.Graph;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class SingleSourcePath {
 
@@ -12,23 +11,34 @@ public class SingleSourcePath {
     private boolean[] visited;
     private int[] pre;
 
+
     public SingleSourcePath(Graph G, int s){
-        G.validateVertex(s);
+
         this.G = G;
         this.s = s;
         visited = new boolean[G.V()];
         pre = new int[G.V()];
 
-        dfs(s, s);
+        Arrays.fill(pre, -1);
+
+        bfs(s);
     }
 
-    private void dfs(int v, int parent) {
+    private void bfs(int s) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(s);
+        visited[s] = true;
+        pre[s] = s;
 
-        visited[v] = true;
-        pre[v] = parent;
-        for(int w : G.adj(v)){
-            if(!visited[w]){
-                dfs(w, v);
+        while (!queue.isEmpty()){
+            int v = queue.remove();
+
+            for(int w : G.adj(v)){
+                if(!visited[w]){
+                    queue.add(w);
+                    visited[w] = true;
+                    pre[w] = v;
+                }
             }
         }
     }
@@ -53,7 +63,6 @@ public class SingleSourcePath {
         return res;
     }
 
-
     public static void main(String[] args) {
         Graph g = new Graph("g1_not_connected.txt");
         SingleSourcePath sspath = new SingleSourcePath(g, 0);
@@ -61,5 +70,6 @@ public class SingleSourcePath {
         System.out.println("0 -> 6 : " + sspath.path(6));
         System.out.println("0 -> 5 : " + sspath.path(5));
     }
+    
 
 }

@@ -6,6 +6,7 @@ import GraphInterface.Graph;
 import java.util.ArrayList;
 import java.util.Stack;
 
+
 public class GraphDFSnr {
 
     private Graph G;
@@ -17,6 +18,7 @@ public class GraphDFSnr {
 
         this.G = G;
         visited = new boolean[G.V()];
+
         for(int v = 0; v < G.V(); v ++){
             if(!visited[v]){
                 dfs(v);
@@ -29,14 +31,16 @@ public class GraphDFSnr {
         Stack<Integer> stack = new Stack<>();
         stack.push(v);
         visited[v] = true;
+
         while(!stack.empty()){
             int cur = stack.pop();
             pre.add(cur);
-            for(int w: G.adj(cur))
+            for(int w: G.adj(cur)){
                 if(!visited[w]){
                     stack.push(w);
                     visited[w] = true;
                 }
+            }
         }
     }
 
@@ -45,9 +49,11 @@ public class GraphDFSnr {
     }
 
     public static void main(String[] args){
+
         Graph g = new AdjSet("g1_not_connected.txt");
         GraphDFSnr graphDFSnr = new GraphDFSnr(g);
         System.out.println(graphDFSnr.pre());
+
     }
 
 }
