@@ -1,6 +1,4 @@
-package ModelizationGraph;
-
-import java.util.HashSet;
+package FloodFill;
 
 /**
  * 使用 Flood Fill 算法 解决 LeetCode0695

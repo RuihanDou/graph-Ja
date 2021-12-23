@@ -1,4 +1,4 @@
-package ModelizationGraph;
+package FloodFill;
 
 public class LeetCode0695UnionFindSolution {
 

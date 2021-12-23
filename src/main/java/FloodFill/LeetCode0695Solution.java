@@ -1,4 +1,4 @@
-package ModelizationGraph;
+package FloodFill;
 
 import java.util.HashSet;
 

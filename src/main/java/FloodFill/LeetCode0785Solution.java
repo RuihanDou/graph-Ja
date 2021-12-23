@@ -1,4 +1,4 @@
-package ModelizationGraph;
+package FloodFill;
 
 /**
  * 785. 判断二分图
