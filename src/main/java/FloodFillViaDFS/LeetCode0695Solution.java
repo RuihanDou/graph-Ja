@@ -1,4 +1,4 @@
-package FloodFill;
+package FloodFillViaDFS;
 
 import java.util.HashSet;
 

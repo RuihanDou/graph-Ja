@@ -1,4 +1,4 @@
-package FloodFill;
+package FloodFillViaDFS;
 
 /**
  * 使用 Flood Fill 算法 解决 LeetCode0695

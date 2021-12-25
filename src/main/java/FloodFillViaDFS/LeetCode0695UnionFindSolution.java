@@ -1,4 +1,4 @@
-package FloodFill;
+package FloodFillViaDFS;
 
 public class LeetCode0695UnionFindSolution {
 

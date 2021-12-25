@@ -1,4 +1,4 @@
-package FloodFill;
+package FloodFillViaDFS;
 
 /**
  * 785. 判断二分图
