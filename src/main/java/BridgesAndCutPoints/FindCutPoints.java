@@ -1,18 +1,14 @@
 package BridgesAndCutPoints;
 
-
-import GraphAdjExpression.Edge;
 import GraphAdjExpression.Graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
- *  只能用 DFS 寻找桥 （割边）
- *
- *  因为 DFS 的 非遍历树 的 边 可以指向 树的祖先节点 行成 回向边（后向边）
- *  利用这个性质寻找桥
+ * 去掉割点，图的联通分量会增加
  */
-public class FindBridges {
+public class FindCutPoints {
 
     private Graph G;
     private boolean[] visited;
@@ -21,15 +17,15 @@ public class FindBridges {
     private int low[];
     private int cnt;
 
-    private ArrayList<Edge> res;
+    private HashSet<Integer> res;
 
-    public FindBridges(Graph G){
+    public FindCutPoints(Graph G){
         this.G = G;
         visited = new boolean[G.V()];
         ord = new int[G.V()];
         low = new int[G.V()];
         cnt = 0;
-        res = new ArrayList<>();
+        res = new HashSet<>();
 
         for(int v = 0; v < G.V(); v++){
             if(!visited[v]){
@@ -44,13 +40,20 @@ public class FindBridges {
         low[v] = ord[v];
         cnt++;
 
+        int child = 0;
         for(int w : G.adj(v)){
             if(!visited[w]){
+
                 dfs(w, v);
                 low[v] = Math.min(low[v], low[w]);
-                if(low[w] > ord[v]){
+                if(v != parent && low[w] >= ord[v]){
                     // v - w 是桥
-                    res.add(new Edge(v, w));
+                    res.add(v);
+                }
+
+                child++;
+                if(v == parent && child > 1){
+                    res.add(v);
                 }
             }
             else if(w != parent){
@@ -60,22 +63,22 @@ public class FindBridges {
 
     }
 
-    public ArrayList<Edge> result(){
+    public HashSet<Integer> result(){
         return res;
     }
 
     public static void main(String[] args) {
         Graph g = new Graph("g4_bridge1.txt");
-        FindBridges fb = new FindBridges(g);
-        System.out.println(fb.result());
+        FindCutPoints fc = new FindCutPoints(g);
+        System.out.println(fc.result());
 
         Graph g2 = new Graph("g4_bridge2.txt");
-        FindBridges fb2 = new FindBridges(g2);
-        System.out.println(fb2.result());
+        FindCutPoints fc2 = new FindCutPoints(g2);
+        System.out.println(fc2.result());
 
         Graph g3 = new Graph("g4_bridge3.txt");
-        FindBridges fb3 = new FindBridges(g3);
-        System.out.println(fb3.result());
+        FindCutPoints fc3 = new FindCutPoints(g3);
+        System.out.println(fc3.result());
     }
 
 }
