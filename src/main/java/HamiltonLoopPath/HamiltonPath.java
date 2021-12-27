@@ -53,11 +53,11 @@ public class HamiltonPath {
         }
 
         int cur = end;
-        while (cur != 0){
+        while (cur != s){
             res.add(cur);
             cur = pre[cur];
         }
-        res.add(0);
+        res.add(s);
 
         Collections.reverse(res);
         return res;

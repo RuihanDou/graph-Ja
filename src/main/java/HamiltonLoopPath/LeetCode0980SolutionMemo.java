@@ -1,12 +1,15 @@
 package HamiltonLoopPath;
 
-public class LeetCode0980Solution {
+import java.util.Arrays;
+
+public class LeetCode0980SolutionMemo {
 
     private int[][] dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     private int[][] grid;
     private int R, C;
-//    private boolean[][] visited;
+    //    private boolean[][] visited;
     private int start, end;
+    private int[][] memo;
 
     public int uniquePathsIII(int[][] grid) {
 
@@ -15,6 +18,11 @@ public class LeetCode0980Solution {
         C = grid[0].length;
 //        visited = new boolean[R][C];
         int left = R * C;
+        memo = new int[1 << (R * C)][R * C];
+
+        for(int i = 0; i < memo.length; i++){
+            Arrays.fill(memo[i], -1);
+        }
 
         for(int i = 0; i < R; i++){
             for (int j = 0; j < C; j++){
@@ -37,6 +45,9 @@ public class LeetCode0980Solution {
 
     private int dfs(int visited, int v, int left) {
 
+        if(memo[visited][v] != -1){
+            return memo[visited][v];
+        }
 //        visited[x][y] = true;
         visited += (1 << v);
         left--;
@@ -44,6 +55,7 @@ public class LeetCode0980Solution {
         if(left == 0 && v == end){
 //            visited[x][y] = false;
             visited -= (1 << v);
+            memo[visited][v] = 1;
             return 1;
         }
 
@@ -54,14 +66,17 @@ public class LeetCode0980Solution {
             int next = nextx * C + nexty;
             if(inArea(nextx, nexty) && grid[nextx][nexty] == 0 && (visited & (1 << next)) == 0){
                 res += dfs(visited, nextx * C + nexty, left);
+
             }
         }
 
         visited -= (1 << v);
+        memo[visited][v] = res;
         return res;
     }
 
     private boolean inArea(int x, int y){
         return x >= 0 && x < R && y >= 0 && y < C;
     }
+
 }

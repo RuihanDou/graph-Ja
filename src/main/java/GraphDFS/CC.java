@@ -17,7 +17,7 @@ public class CC {
     private int[] visited;
     private int cccount = 0;
 
-    private CC(Graph G){
+    public CC(Graph G){
         this.G = G;
         // visited[v] 里存联通分量的id
         visited = new int[G.V()];

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-public class Graph implements GraphInterface.Graph {
+public class Graph implements GraphInterface.Graph, Cloneable {
 
     private int V;
     private int E;
@@ -82,6 +82,33 @@ public class Graph implements GraphInterface.Graph {
     public int degree(int v){
         validateVertex(v);
         return adj[v].size();
+    }
+
+    public void removeEdge(int v, int w){
+        validateVertex(v);
+        validateVertex(w);
+
+        adj[v].remove(w);
+        adj[w].remove(v);
+    }
+
+    @Override
+    public Object clone(){
+        try {
+            Graph cloned = (Graph)super.clone();
+            cloned.adj = new TreeSet[V];
+            for(int v = 0; v < V; v++){
+                cloned.adj[v] = new TreeSet<>();
+                for(int w : this.adj[v]){
+                    cloned.adj[v].add(w);
+                }
+            }
+            return cloned;
+        }
+        catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String toString(){
