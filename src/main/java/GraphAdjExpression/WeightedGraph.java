@@ -1,12 +1,14 @@
 package GraphAdjExpression;
 
+import GraphInterface.Graph;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class WeightedGraph {
+public class WeightedGraph implements Graph {
 
     private int V;
     private int E;
