@@ -61,7 +61,7 @@ public class CC {
     }
 
     public static void main(String[] args) {
-        Graph g = new AdjSet("g1_not_connected.txt");
+        Graph g = new GraphAdjExpression.Graph("g1_not_connected.txt");
         CC cc = new CC(g);
         System.out.println(cc.count());
 
