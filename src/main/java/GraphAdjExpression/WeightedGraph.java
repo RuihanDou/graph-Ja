@@ -13,8 +13,11 @@ public class WeightedGraph implements Graph {
     private int V;
     private int E;
     private TreeMap<Integer, Integer>[] adj;
+    private boolean directed;
 
-    public WeightedGraph(String filename){
+    public WeightedGraph(String filename, boolean directed){
+
+        this.directed = directed;
 
         File file = new File(filename);
 
@@ -49,12 +52,22 @@ public class WeightedGraph implements Graph {
                 }
 
                 adj[a].put(b, weight);
-                adj[b].put(a, weight);
+                if(!directed){
+                    adj[b].put(a, weight);
+                }
             }
         }
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public WeightedGraph(String filename){
+        this(filename, false);
+    }
+
+    public boolean isDirected(){
+        return directed;
     }
 
     public void validateVertex(int v){
@@ -88,6 +101,7 @@ public class WeightedGraph implements Graph {
         throw new IllegalArgumentException(String.format("No edge %d - %d", v, w));
     }
 
+    // 对于无向图生效
     public int degree(int v){
         validateVertex(v);
         return adj[v].size();
@@ -123,11 +137,11 @@ public class WeightedGraph implements Graph {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("V = %d, E = %d\n", V, E));
+        sb.append(String.format("V = %d, E = %d, directed = %b\n", V, E, directed));
         for(int v = 0; v < V; v ++){
             sb.append(String.format("%d : ", v));
             for(Map.Entry<Integer, Integer> entry : this.adj[v].entrySet()){
-                sb.append(String.format("(%d: %d)", entry.getKey(), entry.getValue() ));
+                sb.append(String.format("(%d: %d) ", entry.getKey(), entry.getValue() ));
             }
             sb.append('\n');
         }
@@ -135,8 +149,8 @@ public class WeightedGraph implements Graph {
     }
 
     public static void main(String[] args) {
-        WeightedGraph g = new WeightedGraph("g7_weighted_graph.txt");
-        System.out.println(g);
+        WeightedGraph wg = new WeightedGraph("g8_weighted_directed.txt", true);
+        System.out.println(wg);
     }
 
 }

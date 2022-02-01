@@ -45,7 +45,7 @@ public class Dijkstra {
 
         visited = new boolean[G.V()];
 
-        PriorityQueue<Node> pq = new PriorityQueue<Node>();
+        PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(s, 0));
 
         while (!pq.isEmpty()){

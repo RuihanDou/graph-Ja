@@ -12,8 +12,11 @@ public class Graph implements GraphInterface.Graph, Cloneable {
     private int V;
     private int E;
     private TreeSet<Integer>[] adj;
+    private boolean directed;
 
-    public Graph(String filename){
+    public Graph(String filename, boolean directed){
+
+        this.directed = directed;
 
         File file = new File(filename);
 
@@ -47,12 +50,22 @@ public class Graph implements GraphInterface.Graph, Cloneable {
                 }
 
                 adj[a].add(b);
-                adj[b].add(a);
+                if(!directed){
+                    adj[b].add(a);
+                }
             }
         }
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public Graph(String filename){
+        this(filename, false);
+    }
+
+    public boolean isDirected(){
+        return directed;
     }
 
     public void validateVertex(int v){
@@ -79,6 +92,7 @@ public class Graph implements GraphInterface.Graph, Cloneable {
         return adj[v];
     }
 
+    // 只对无向图
     public int degree(int v){
         validateVertex(v);
         return adj[v].size();
@@ -89,7 +103,9 @@ public class Graph implements GraphInterface.Graph, Cloneable {
         validateVertex(w);
 
         adj[v].remove(w);
-        adj[w].remove(v);
+        if(!directed){
+            adj[w].remove(v);
+        }
     }
 
     @Override
@@ -114,7 +130,7 @@ public class Graph implements GraphInterface.Graph, Cloneable {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("V = %d, E = %d\n", V, E));
+        sb.append(String.format("V = %d, E = %d, directed = %b\n", V, E, directed));
         for(int v = 0; v < V; v ++){
             sb.append(String.format("%d : ", v));
             for(int w : adj[v]){
@@ -127,8 +143,9 @@ public class Graph implements GraphInterface.Graph, Cloneable {
 
     public static void main(String[] args){
 
-        AdjSet adjSet = new AdjSet("g0.txt");
-        System.out.print(adjSet);
+//        AdjSet adjSet = new AdjSet("g0.txt");
+        Graph g = new Graph("g8_directed.txt", true);
+        System.out.print(g);
     }
 
 }
