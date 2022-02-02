@@ -15,6 +15,10 @@ public class CycleDetection {
 
     public CycleDetection(Graph G){
 
+        if(G.isDirected()){
+            throw new IllegalArgumentException("Cycle Detection only works in undirected graph.");
+        }
+
         this.G = G;
         visited = new boolean[G.V()];
         pre = new int[G.V()];

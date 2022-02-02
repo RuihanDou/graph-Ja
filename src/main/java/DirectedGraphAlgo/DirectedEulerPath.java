@@ -1,44 +1,54 @@
-package EulerLoopPath;
+package DirectedGraphAlgo;
 
 import GraphAdjExpression.Graph;
 import GraphDFS.CC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
-public class EulerPath {
+public class DirectedEulerPath {
 
     private Graph G;
     private int s;
 
-    public EulerPath(Graph G, int s){
+    public DirectedEulerPath(Graph G, int s){
 
-        if(G.isDirected()){
-            throw new IllegalArgumentException("EulerPath only works in undirected graph.");
+        if(!G.isDirected()){
+            throw new IllegalArgumentException("DirectedEulerPath only works in directed graph.");
         }
 
         this.G = G;
         this.s = s;
     }
 
+    /**
+     *
+     * 默认图已经联通
+     *
+     * @return
+     */
     public boolean hasEularPath(){
 
-        CC cc = new CC(G);
-        if(cc.count() > 1){
-            return false;
-        }
+//        CC cc = new CC(G);
+//        if(cc.count() > 1){
+//            return false;
+//        }
 
-        int odd = 0;
+        int start = 0;
+        int end = 0;
         for(int v = 0; v < G.V(); v++){
-            if(G.degree(v) % 2 == 1){
-                odd++;
+            if(G.indegree(v) < G.outdegree(v)){
+                start++;
+            } else if(G.indegree(v) > G.outdegree(v)){
+                end++;
             }
         }
 
-        if(odd == 0){
+        if(start == 0 && end == 0){
             return true;
         }
-        else if(odd == 2 && G.degree(s) % 2 == 1){
+        else if(start == 1 && end == 1 && G.indegree(s) < G.outdegree(s)){
             return true;
         }
         else {
@@ -70,13 +80,8 @@ public class EulerPath {
                 curv = stack.pop();
             }
         }
+        Collections.reverse(res);
         return res;
-    }
-
-    public static void main(String[] args) {
-        Graph g = new Graph("g6_euler3.txt");
-        EulerPath ep = new EulerPath(g, 0);
-        System.out.println(ep.result());
     }
 
 }

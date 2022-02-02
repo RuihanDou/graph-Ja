@@ -103,6 +103,9 @@ public class WeightedGraph implements Graph {
 
     // 对于无向图生效
     public int degree(int v){
+        if(directed){
+            throw new RuntimeException("degree only works in undirected graph.");
+        }
         validateVertex(v);
         return adj[v].size();
     }
@@ -110,6 +113,10 @@ public class WeightedGraph implements Graph {
     public void removeEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
+
+        if(adj[v].containsKey(w)){
+            E--;
+        }
 
         adj[v].remove(w);
         adj[w].remove(v);

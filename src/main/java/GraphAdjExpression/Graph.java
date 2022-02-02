@@ -13,6 +13,7 @@ public class Graph implements GraphInterface.Graph, Cloneable {
     private int E;
     private TreeSet<Integer>[] adj;
     private boolean directed;
+    private int[] indegrees, outdegrees;
 
     public Graph(String filename, boolean directed){
 
@@ -30,6 +31,9 @@ public class Graph implements GraphInterface.Graph, Cloneable {
             for(int i = 0; i < V; i++){
                 adj[i] = new TreeSet<Integer>();
             }
+
+            indegrees = new int[V];
+            outdegrees = new int[V];
 
             E = scanner.nextInt();
             if(E < 0){
@@ -50,6 +54,10 @@ public class Graph implements GraphInterface.Graph, Cloneable {
                 }
 
                 adj[a].add(b);
+                if(directed){
+                    outdegrees[a]++;
+                    indegrees[b]++;
+                }
                 if(!directed){
                     adj[b].add(a);
                 }
@@ -94,13 +102,42 @@ public class Graph implements GraphInterface.Graph, Cloneable {
 
     // 只对无向图
     public int degree(int v){
+        if(directed){
+            throw new RuntimeException("degree only works in undirected graph.");
+        }
         validateVertex(v);
         return adj[v].size();
+    }
+
+    public int indegree(int v){
+        if(!directed){
+            throw new RuntimeException("indegree only works in directed graph.");
+        }
+        validateVertex(v);
+        return indegrees[v];
+    }
+
+    public int outdegree(int v){
+        if(!directed){
+            throw new RuntimeException("outdegree only works in directed graph.");
+        }
+        validateVertex(v);
+        return outdegrees[v];
     }
 
     public void removeEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
+
+        if(adj[v].contains(w)){
+            E--;
+
+            if(directed){
+                outdegrees[v]--;
+                indegrees[w]--;
+            }
+
+        }
 
         adj[v].remove(w);
         if(!directed){
@@ -144,8 +181,14 @@ public class Graph implements GraphInterface.Graph, Cloneable {
     public static void main(String[] args){
 
 //        AdjSet adjSet = new AdjSet("g0.txt");
-        Graph g = new Graph("g8_directed.txt", true);
+//        Graph g = new Graph("g8_directed.txt", true);
+        Graph g = new Graph("g9_directed_cycle_detection_no.txt", true);
+
         System.out.print(g);
+
+        for (int v = 0; v< g.V(); v++){
+            System.out.println(g.indegree(v) + " " + g.outdegree(v));
+        }
     }
 
 }

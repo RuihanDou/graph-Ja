@@ -1,25 +1,28 @@
-package EulerLoopPath;
+package DirectedGraphAlgo;
 
 import GraphAdjExpression.Graph;
 import GraphDFS.CC;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
-public class EulerLoop {
+public class DirectedEulerLoop {
 
     private Graph G;
 
-    public EulerLoop(Graph G){
+    public DirectedEulerLoop(Graph G){
 
-        if(G.isDirected()){
-            throw new IllegalArgumentException("EulerLoop only works in undirected graph.");
+        if(!G.isDirected()){
+            throw new IllegalArgumentException("EulerLoop only works in directed graph.");
         }
 
         this.G = G;
     }
 
     /**
+     * 已经默认该图联通
+     *
      * 对于欧拉回路
      *
      * 存在欧拉回路的 充要条件是 图联通且每个点的度为偶数
@@ -28,13 +31,13 @@ public class EulerLoop {
      */
     public boolean hasEularLoop(){
 
-        CC cc = new CC(G);
-        if(cc.count() > 1){
-            return false;
-        }
+//        CC cc = new CC(G);
+//        if(cc.count() > 1){
+//            return false;
+//        }
 
         for(int v = 0; v < G.V(); v++){
-            if(G.degree(v) % 2 == 1){
+            if(G.indegree(v) != G.outdegree(v)){
                 return false;
             }
         }
@@ -59,7 +62,7 @@ public class EulerLoop {
         stack.push(curv);
 
         while (!stack.isEmpty()){
-            if(g.degree(curv) != 0){
+            if(g.outdegree(curv) != 0){
                 stack.push(curv);
                 int w = g.adj(curv).iterator().next();
                 g.removeEdge(curv, w);
@@ -70,17 +73,18 @@ public class EulerLoop {
                 curv = stack.pop();
             }
         }
+        Collections.reverse(res);
         return res;
     }
 
     public static void main(String[] args) {
-        Graph g = new Graph("g6_euler1.txt");
-        EulerLoop el = new EulerLoop(g);
+
+//        Graph g = new Graph("g9_directed_cycle_detection_no.txt", true);
+        Graph g = new Graph("g9_directed_euler_loop.txt", true);
+        DirectedEulerLoop el = new DirectedEulerLoop(g);
+        System.out.println(el.hasEularLoop());
         System.out.println(el.result());
 
-        Graph g2 = new Graph("g6_euler2.txt");
-        EulerLoop el2 = new EulerLoop(g2);
-        System.out.println(el2.result());
 
     }
 
