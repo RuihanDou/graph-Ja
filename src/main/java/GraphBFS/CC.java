@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Connected Component
+ *
+ * 求连通分量个数
+ */
 public class CC {
 
     private Graph G;
