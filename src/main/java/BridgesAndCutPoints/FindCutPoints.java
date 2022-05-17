@@ -13,7 +13,9 @@ public class FindCutPoints {
     private Graph G;
     private boolean[] visited;
 
+    // ord 记录遍历的顺序
     private int ord[];
+    // low 记录通过该顶点能够回到的最早遍历到的点
     private int low[];
     private int cnt;
 
@@ -46,12 +48,14 @@ public class FindCutPoints {
 
                 dfs(w, v);
                 low[v] = Math.min(low[v], low[w]);
+                // 对于 边 v - w 如果 low[w] > ord[v]
                 if(v != parent && low[w] >= ord[v]){
                     // v - w 是桥
                     res.add(v);
                 }
 
                 child++;
+                // 对于根节点，有一个以上孩子，就可以被认为是割点
                 if(v == parent && child > 1){
                     res.add(v);
                 }
