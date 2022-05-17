@@ -38,6 +38,8 @@ public class EulerPath {
         if(odd == 0){
             return true;
         }
+
+        // 有两个点的度是奇数，其他的点的度都是偶数，且起始点的度为奇数也存在
         else if(odd == 2 && G.degree(s) % 2 == 1){
             return true;
         }
