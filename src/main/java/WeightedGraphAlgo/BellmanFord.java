@@ -18,7 +18,7 @@ public class BellmanFord {
     /**
      *  BellMan Ford 算法可以对有向图生效，存在负权边的图有效。
      *
-     *  …… 但有负权边的图的最短路径没有意义
+     *  …… 但有负权环的图的最短路径没有意义
      *
      * @param G
      * @param s
