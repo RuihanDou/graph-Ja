@@ -21,11 +21,19 @@ public class HamiltonLoopPro {
         dfs(0, 0, G.V());
     }
 
+    /**
+     *
+     * @param v
+     * @param parent
+     * @param left 剩余多少需要访问的点
+     * @return
+     */
     private boolean dfs(int v, int parent, int left) {
 
         visited[v] = true;
         pre[v] = parent;
         left--;
+        // 提前设置终止条件
         if(left == 0 && G.hasEdge(v, 0)){
             end = v;
             return true;

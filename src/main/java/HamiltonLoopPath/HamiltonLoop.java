@@ -31,7 +31,9 @@ public class HamiltonLoop {
                     return true;
                 }
             }
+            // 如果 w 被访问过，并且所有点被访问过，并且 w 是出发点0
             else if(w == 0 && allVisited()){
+                // 回到 0 之前的最后一个点
                 end = v;
                 return true;
             }
