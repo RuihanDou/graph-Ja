@@ -7,6 +7,12 @@ import GraphDFS.CC;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * 贪心过程（用切分定理可以证明），从最小的边（权值最小的边）开始看
+ *
+ * 如果边上有 现有树里没有的点，则加入该边到最小生成树中
+ *
+ */
 public class Kruskal {
 
     private WeightedGraph G;

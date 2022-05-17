@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * 根据切分定理，从一个点开始扩充切分
+ */
 public class Prim {
 
     private WeightedGraph G;
@@ -44,6 +47,7 @@ public class Prim {
 //        }
         // Prim
         boolean[] visited = new boolean[G.V()];
+        // 从0开始扩充切分
         visited[0] = true;
         Queue pq = new PriorityQueue<WeightedEdge>();
         for(int w : G.adj(0)){
@@ -51,11 +55,14 @@ public class Prim {
         }
         while (!pq.isEmpty()){
             WeightedEdge minEdge = (WeightedEdge) pq.remove();
+            // 切分中包含 minEdge 中的两个端 点，跳过本次weightedEdge
             if(visited[minEdge.getV()] && visited[minEdge.getW()]){
                 continue;
             }
             mst.add(minEdge);
+            // newv 是没有在切分中的点
             int newv = visited[minEdge.getV()] ? minEdge.getW() : minEdge.getV();
+            // 把 newv 加入切分中，扩充切分，故 newv 的所有边加入到优先队列中
             visited[newv] = true;
 
             for (int w : G.adj(newv)){
