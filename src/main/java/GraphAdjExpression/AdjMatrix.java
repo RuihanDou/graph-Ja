@@ -100,6 +100,16 @@ public class AdjMatrix implements Graph {
     }
 
     @Override
+    public boolean isDirected() {
+        return false;
+    }
+
+    @Override
+    public Graph reverseGraph() {
+        throw new RuntimeException("AdjMatrix doesn't provide reverseGraph");
+    }
+
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
 

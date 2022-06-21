@@ -19,7 +19,9 @@ public class CC {
     private int cccount = 0;
 
     public CC(Graph G){
-
+        if(G.isDirected()){
+            throw new IllegalArgumentException("CC only works in undirected graph.");
+        }
         this.G = G;
         visited = new int[G.V()];
 

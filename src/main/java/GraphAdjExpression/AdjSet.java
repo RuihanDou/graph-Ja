@@ -91,6 +91,16 @@ public class AdjSet implements Graph {
     }
 
     @Override
+    public boolean isDirected() {
+        return false;
+    }
+
+    @Override
+    public Graph reverseGraph() {
+        return null;
+    }
+
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
 

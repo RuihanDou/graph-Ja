@@ -18,6 +18,10 @@ public class CC {
     private int cccount = 0;
 
     public CC(Graph G){
+        if(G.isDirected()){
+            throw new IllegalArgumentException("CC only works in undirected graph.");
+        }
+
         this.G = G;
         // visited[v] 里存联通分量的id
         visited = new int[G.V()];

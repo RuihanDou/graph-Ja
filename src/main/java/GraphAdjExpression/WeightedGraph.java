@@ -70,6 +70,11 @@ public class WeightedGraph implements Graph {
         return directed;
     }
 
+    @Override
+    public Graph reverseGraph() {
+        throw new RuntimeException("WeightedGraph doesn't provide reverseGraph");
+    }
+
     public void validateVertex(int v){
         if(v < 0 || v >= V)
             throw new IllegalArgumentException("vertex " + v + "is invalid");

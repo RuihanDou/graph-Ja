@@ -7,4 +7,6 @@ public interface Graph {
     boolean hasEdge(int v, int w);
     Iterable<Integer> adj(int v);
     int degree(int v);
+    boolean isDirected();
+    Graph reverseGraph();
 }
