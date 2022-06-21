@@ -8,6 +8,9 @@ import java.util.Queue;
 
 /**
  * 使用入度求解拓扑排序，可以检测有环，有环的情况下 有向图的排序没有意义
+ *
+ * O(V + E)
+ *
  */
 public class TopoSort {
 

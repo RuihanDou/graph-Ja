@@ -12,6 +12,8 @@ import java.util.Collections;
 /**
  * 使用 Kosaraju 算法求 有向图的强连通分量
  *
+ * O(V + E)
+ *
  */
 public class SCC {
 
