@@ -66,6 +66,37 @@ public class WeightedGraph implements Graph {
         this(filename, false);
     }
 
+    public WeightedGraph(int V, boolean directed){
+        this.V = V;
+        this.directed = directed;
+        this.E = 0;
+
+        adj = new TreeMap[V];
+        for(int i = 0; i < V; i++){
+            adj[i] = new TreeMap<>();
+        }
+    }
+
+    public void addEdge(int a, int b, int weight){
+        validateVertex(a);
+        validateVertex(b);
+
+        if(a == b){
+            throw new IllegalArgumentException("Self Loop is Detected!");
+        }
+
+        if(adj[a].containsKey(b)){
+            throw new IllegalArgumentException("Parallel Edges are Detected!");
+        }
+
+        adj[a].put(b, weight);
+        if(!directed){
+            adj[b].put(a, weight);
+        }
+
+        this.E++;
+    }
+
     public boolean isDirected(){
         return directed;
     }
@@ -77,7 +108,7 @@ public class WeightedGraph implements Graph {
 
     public void validateVertex(int v){
         if(v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + "is invalid");
+            throw new IllegalArgumentException("vertex " + v + " is invalid");
     }
 
     public int V(){
@@ -104,6 +135,16 @@ public class WeightedGraph implements Graph {
             return adj[v].get(w);
         }
         throw new IllegalArgumentException(String.format("No edge %d - %d", v, w));
+    }
+
+    public void setWeight(int v, int w, int newWeight){
+        if(!hasEdge(v, w)){
+            throw new IllegalArgumentException(String.format("No edge %d - %d", v, w));
+        }
+        adj[v].put(w, newWeight);
+        if(!directed){
+            adj[w].put(v, newWeight);
+        }
     }
 
     // 对于无向图生效
