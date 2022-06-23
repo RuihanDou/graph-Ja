@@ -160,6 +160,26 @@ public class Graph implements GraphInterface.Graph, Cloneable {
         return outdegrees[v];
     }
 
+    public void addEdge(int a, int b){
+
+        validateVertex(a);
+        validateVertex(b);
+
+        if(a == b){
+            throw new IllegalArgumentException("Self Loop is Detected!");
+        }
+        if(adj[a].contains(b)){
+            throw new IllegalArgumentException("Parallel Edges are Detected!");
+        }
+
+        adj[a].add(b);
+        if(!directed){
+            adj[b].add(a);
+        }
+        this.E++;
+    }
+
+
     public void removeEdge(int v, int w){
         validateVertex(v);
         validateVertex(w);
